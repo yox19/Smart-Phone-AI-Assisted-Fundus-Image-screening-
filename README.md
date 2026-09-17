@@ -4,7 +4,7 @@ This project is designed to address equipment and resource constraints in primar
 
 ## 📌 Objectives
 
-- Asses feasibility of low-cost smartphone-based retinal imaging system feasible for routine screening in Ethiopian primary care
+- Asses feasibility of low-cost smartphone-based retinal imaging system for routine screening in Ethiopian primary care
 
 - Sensitivity, Specificity, Positive Predictive Value, and Negative Predictive Value of the AI-assisted system compared to the reference standard
 
@@ -13,8 +13,9 @@ This project is designed to address equipment and resource constraints in primar
 ## 📊 Dataset
 
 - Kagle eye disease dataset: preprocessed 
- 
-- Local image dataset: kaggle repository of Gondar University eye disease preprocessed and labeled dataset
+ as training, validation and test dataset 
+
+- Local image dataset: kaggle repository of Gondar University eye disease preprocessed and labeled dataset, to test generalizability 
 
 ## 🔬 Methods
 
@@ -22,6 +23,7 @@ This project is designed to address equipment and resource constraints in primar
 
 standardization and normalization.
 Feature encoding for categorical variables.
+
 ### 2. Exploratory Data Analysis (EDA)
 
 Distribution of eye disease.
@@ -63,7 +65,7 @@ Balanced accuracy: 0.8732523365485955
 
 The machine learning model achieved an AUC of 0.920, indicating strong overall performance in predicting deterioration.
   
-### Model Comparison (ML Model vs. NEWS2 Alone):
+### Model Comparison (EffcientNetB3 Vs MobilenetV2)
 
 - MobileNetV2
 
