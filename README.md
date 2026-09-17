@@ -4,22 +4,31 @@ This project is designed to address equipment and resource constraints in primar
 
 ## 📌 Objectives
 
+- Asses feasibility of low-cost smartphone-based retinal imaging system feasible for routine screening in Ethiopian primary care
+
+- Sensitivity, Specificity, Positive Predictive Value, and Negative Predictive Value of the AI-assisted system compared to the reference standard
+
+- Asses ungradable image rates and the factors contributing to them
+
 ## 📊 Dataset
+
+- Kagle eye disease dataset: preprocessed 
+ 
+- Local image dataset: kaggle repository of Gondar University eye disease preprocessed and labeled dataset
 
 ## 🔬 Methods
 
 ### 1. Data Preprocessing
 
-Handling missing values and normalization.
+standardization and normalization.
 Feature encoding for categorical variables.
 ### 2. Exploratory Data Analysis (EDA)
 
-Distribution of risk factors.
-Correlation analysis between clinical variables and stroke.
+Distribution of eye disease.
+
 ### 3. Modeling
 
-Logistic Regression
-Random Forest Classifier
+
 Evaluation with Accuracy, Precision, Recall, F1-score, ROC-AUC.
 ### 4. Model Refinement
 
@@ -37,35 +46,58 @@ Comparison of performance across models.
   
 - Comorbidities:
   
-### Overall Model AUC: 
+### Overall Model performance across methods: EffB3
+
+- Resize + CLAHE + NLM:
+ 
+Accuracy: 0.8617424242424242
+
+Balanced accuracy: 0.8598583091252455
+
+- Resize + CLAHE:
+
+Accuracy: 0.875
+Balanced accuracy: 0.8732523365485955
+
+
+
 The machine learning model achieved an AUC of 0.920, indicating strong overall performance in predicting deterioration.
-
-### Subgroup Analysis: Performance varied across different patient subgroups:
-
-- Pneumonia Only (no HF): AUC of 0.939
-  
-- Pneumonia + Heart Failure: AUC of 0.881
-  
-- Pneumonia + HF + Anemia: AUC of 0.809
-  
-- HIV Positive: AUC of 0.894
-  
-- Age > 60: AUC of 0.911
   
 ### Model Comparison (ML Model vs. NEWS2 Alone):
 
-- NEWS2 Alone AUC: 0.898
-  
-- ML Model AUC: 0.920
-  
-The ML model showed an improvement of 0.021 AUC (+2.4%) over NEWS2 alone.
+- MobileNetV2
 
-### Time to Deterioration by Subgroup: 
-The mean time to deterioration across subgroups ranged from 30 to 32 hours from admission.
+Classification Report
 
-## 🧩 Clinical Relevance
+Accuracy: 0.75
+
+Balanced accuracy: 0.7464499708432975
+
+Diabetic predictability up to 97% accuracy on sample images, on the other hand performed poorly in other eye disease datasets.
+
+
+- EffcientNetB3
+
+Accuracy: 0.875
+
+Balanced accuracy: 0.8732523365485955
+
+Over all, better performance than MobileNet, but poor generalizability in diabetic retinopathy scoring in local image file.
+ 
+  
+## 🧩 Conclusion 
+
+- The second method (removing NLM) showed higher accuracy (0.875 vs 0.8617). This highlights either the noise wasn't overly detrimental, or the NLM denoising might have inadvertently removed some subtle features that the model found useful.
+
+- Glaucoma and Cataract in MobilenetV2, showed lower F1 Score, recall and accuracy, suggesting there might be Subtlety/Variability
+
+- On the other hand, diabetic retinopathy showed best performance, which could explained by MobileNetV2 architecture (which excels at feature extraction) to identify distinct features such as hemmorhages, micro aneurysm compared to other conditions.
 
 ## Limitation
+
+- Dataset small sample size
+
+- Image quality and variability in augmentation and normalization techniques 
 
 ## 🚀 How to Run
 
@@ -75,7 +107,7 @@ Python 3.x
 
 pandas, numpy, matplotlib, seaborn
 
-scikit-learn
+scikit-learn, Tensorflow 
 
 ## Author
 
