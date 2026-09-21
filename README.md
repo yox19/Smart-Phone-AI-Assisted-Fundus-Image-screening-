@@ -4,7 +4,7 @@ This project is designed to address equipment and resource constraints in primar
 
 ## 📌 Objectives
 
-- Asses feasibility of low-cost smartphone-based retinal imaging system for routine screening in Ethiopian primary care
+- Asses performance light weight ML models like EffcientNetB3 and MobilenetV2 applicability and generalizability in resource constrained settings compared to heavyweight ML architectures like CNN
 
 - Sensitivity, Specificity, Positive Predictive Value, and Negative Predictive Value of the AI-assisted system compared to the reference standard
 
