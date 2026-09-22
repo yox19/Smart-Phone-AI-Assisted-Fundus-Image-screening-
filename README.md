@@ -1,4 +1,37 @@
-# Low-cost AI-assisted diabetic retinopathy screening designed around the equipment and referral constrains of Ethiopian Primary Healthcare
+# Evaluation and external validation of resource-efficient deep-learning models for retinal disease classification in resource-constrained healthcare settings
+
+## Model Design 
+
+
+                         ┌──────────────────────┐
+                         │ Public Kaggle Dataset │
+                         └──────────┬───────────┘
+                                    │
+                              development set
+                                    │
+                     ┌──────────────┴──────────────┐
+                     │                             │
+                   Train                         Validation
+                     │
+                     ▼
+              Model development
+                     │
+                     ▼
+               Locked model
+                     │
+                     │
+                     ▼
+        ┌─────────────────────────────┐
+        │ Completely untouched local  │
+        │ Ethiopian/Gondar dataset    │
+        └──────────────┬──────────────┘
+                       │
+                External validation
+                       │
+                       ▼
+          Generalization performance
+
+
 
 This project is designed to address equipment and resource constraints in primary healthcare settings. It uses adaptale and opensource repository to test feasibility and generalizability of model performance aganist local preproccessed retinal images. 
 
