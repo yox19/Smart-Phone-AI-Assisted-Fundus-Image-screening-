@@ -33,106 +33,214 @@
 
 
 
-This project is designed to address equipment and resource constraints in primary healthcare settings. It uses adaptale and opensource repository to test feasibility and generalizability of model performance aganist local preproccessed retinal images. 
+The study evaluates resource-efficient convolutional neural networks for retinal image classification and investigates generalizability using an independent local dataset.
 
-## 📌 Objectives
+## 📌 Research Questions 
 
-- Asses performance light weight ML models like EffcientNetB3 and MobilenetV2 applicability and generalizability in resource constrained settings compared to heavyweight ML architectures like CNN
+1. How accurately can EfficientNetB3 and MobileNetV2 classify retinal diseases images?
 
-- Sensitivity, Specificity, Positive Predictive Value, and Negative Predictive Value of the AI-assisted system compared to the reference standard
+2. How do preproccessing affect model performance
 
-- Asses ungradable image rates and the factors contributing to them
+3. How well do model trained on the public development dataset generalize to an independent local dataset?
 
-## 📊 Dataset
+4. what computational characteristics affect deployment feasibility in resource-constrained settings?
 
-- Kagle eye disease dataset: preprocessed 
- as training, validation and test dataset 
+## 📊 Dataset and Study design
 
-- Local image dataset: kaggle repository of Gondar University eye disease preprocessed and labeled dataset, to test generalizability 
+Kagle eye disease dataset:
 
-## 🔬 Methods
+- Preprocessing
 
-### 1. Data Preprocessing
+- train/validation/test
 
-standardization and normalization.
-Feature encoding for categorical variables.
+- modeldevelopment
 
-### 2. Exploratory Data Analysis (EDA)
+- locked model
 
-Distribution of eye disease.
+- independent local external validation
 
-### 3. Modeling
+## 🔬 Methods and Models
 
+### Data Preprocessing
+- Resize
 
-Evaluation with Accuracy, Precision, Recall, F1-score, ROC-AUC.
-### 4. Model Refinement
+- CLAHE
 
-Train/test split to avoid overfitting.
-Hyperparameter tuning.
-Comparison of performance across models.
+- NLM denoising
+
+- Normalization
+
+- Training augmmentation
+
+### Model Evaluation
+- Accuracy
+
+- Balanced Accuracy
+
+- Macro-F1
+
+- Per-class sensitivity
+
+- Per-class specificity
+
+- ROC-AUC
+
+- Confusion matrix
+
+- 95% confidence interval
+
+- Model size
+
+- Parameter count
+
+- Inference time
+
+### Reproducibility
+All experiments use fixed random seeds and version-pinned dependence.
+
+## Data Availability
+The Public dataset is available from: kaaglle dtaset
+
+The local dataset:
 
 ## 📈 Key Results
 
-### Exploratory Data anlysis
+### Dataset characteristics 
 
-- Demographics:
+Public Dataset: A total of 4217 images containing four eye diseases classes: 
+
+- Diabetic retinopathy    1098
+
+- Normal                  1074
+- Cataract                1038
+- Glaucoma                1007
+
+Local dataset: University of Gondar Referral Hospital (UOGRH) Eye Clinic in Ethiopia. The final dataset consisted of 3,848 labeled images, partitioned into four distinct clinical categories: 
+
+- Diabetic Retinopathy (DR) (31% or 1,192 images),
+
+- Normal (29% or 1,116 images),
+
+- Glaucoma (26% or 999 images), and
+
+- Age-related Macular Degeneration (AMD) (14% or 541 images).
+
+NB: For analysis purpose the dataset containing cataract from the public and AMD were excluded prior to cross validation
   
-- Age group:
-  
-- Comorbidities:
-  
-### Overall Model performance across methods: EffB3
+### Model performance across methods
 
-- Resize + CLAHE + NLM:
- 
-Accuracy: 0.8617424242424242
+#### Experiment 1: EfficientNetB3 Baseline
+17/17 ━━━━━━━━━━━━━━━━━━━━ 34s 2s/step
+Accuracy: 0.8882575757575758
+Balanced accuracy: 0.88601454625216
 
-Balanced accuracy: 0.8598583091252455
+Classification report:
+                      precision    recall  f1-score   support
 
-- Resize + CLAHE:
+            cataract     0.9302    0.9302    0.9302       129
+diabetic_retinopathy     0.9424    0.9493    0.9458       138
+            glaucoma     0.9126    0.7460    0.8210       126
+              normal     0.7898    0.9185    0.8493       135
 
-Accuracy: 0.875
-Balanced accuracy: 0.8732523365485955
+            accuracy                         0.8883       528
+           macro avg     0.8938    0.8860    0.8866       528
+        weighted avg     0.8933    0.8883    0.8875       528
+
+#### Experiment 2: NLM 
+17/17 ━━━━━━━━━━━━━━━━━━━━ 119s 6s/step
+Accuracy: 0.8522727272727273
+Balanced accuracy: 0.8493633674119012
+
+Classification report:
+                      precision    recall  f1-score   support
+
+            cataract     0.8992    0.8992    0.8992       129
+diabetic_retinopathy     0.9333    0.9130    0.9231       138
+            glaucoma     0.8750    0.6667    0.7568       126
+              normal     0.7381    0.9185    0.8185       135
+
+            accuracy                         0.8523       528
+           macro avg     0.8614    0.8494    0.8494       528
+        weighted avg     0.8612    0.8523    0.8508       528
+
+#### Experiment 3: MobileNetV2 Architecture Comparison
+17/17 ━━━━━━━━━━━━━━━━━━━━ 22s 1s/step
+Accuracy: 0.6893939393939394
+Balanced accuracy: 0.6861009463891163
+
+Classification report:
+                      precision    recall  f1-score   support
+
+            cataract     0.7308    0.5891    0.6524       129
+diabetic_retinopathy     0.8492    0.7754    0.8106       138
+            glaucoma     0.5920    0.5873    0.5896       126
+              normal     0.6185    0.7926    0.6948       135
+
+            accuracy                         0.6894       528
+           macro avg     0.6976    0.6861    0.6869       528
+        weighted avg     0.6999    0.6894    0.6896       528
 
 
+#### Experiment 4: Locked-Model External Validation (Gondar Dataset)
+--- Gonder Dataset Summary (Post-Filtering) ---
+Total valid images loaded: 3323
+label
+diabetic_retinopathy    1204
+normal                  1112
+glaucoma                1007
+Name: count, dtype: int64
+104/104 ━━━━━━━━━━━━━━━━━━━━ 13s 77ms/step
 
-The machine learning model achieved an AUC of 0.920, indicating strong overall performance in predicting deterioration.
-  
-### Model Comparison (EffcientNetB3 Vs MobilenetV2)
+--- Gonder Locked Model External Validation Report ---
+                      precision    recall  f1-score   support
 
-- MobileNetV2
+diabetic_retinopathy       0.91      0.92      0.91      1204
+            glaucoma       0.80      0.79      0.80      1007
+              normal       0.81      0.77      0.79      1112
 
-Classification Report
+           micro avg       0.84      0.83      0.84      3323
+           macro avg       0.84      0.82      0.83      3323
+        weighted avg       0.84      0.83      0.84      3323
 
-Accuracy: 0.75
+#### Experiment 5: Computational & Deployment Analysis
+Computational Profiling Results:
+- Model Size (MB): 9.28
+- Total Parameters: 2268228
+- Trainable Parameters: 7684
+- Single-Image CPU Latency (ms): 292.82
+- Throughput (FPS): 3.42
 
-Balanced accuracy: 0.7464499708432975
-
-Diabetic predictability up to 97% accuracy on sample images, on the other hand performed poorly in other eye disease datasets.
-
-
-- EffcientNetB3
-
-Accuracy: 0.875
-
-Balanced accuracy: 0.8732523365485955
-
-Over all, better performance than MobileNet, but poor generalizability in diabetic retinopathy scoring in local image file.
- 
-  
 ## 🧩 Conclusion 
 
-- The second method (removing NLM) showed higher accuracy (0.875 vs 0.8617). This highlights either the noise wasn't overly detrimental, or the NLM denoising might have inadvertently removed some subtle features that the model found useful.
+- In the third experiment removing no-local means denoising was associated with higher validation/test performance than the preprocessing pipeline incorporating denoising. This finding does not establish that denoising removes clinically relevant feature; the difference may reflect interaction between preprocessing, augmentation, model architecture, and dataset characterstics.
 
 - Glaucoma and Cataract in MobilenetV2, showed lower F1 Score, recall and accuracy, suggesting there might be Subtlety/Variability
 
-- On the other hand, diabetic retinopathy showed best performance, which could explained by MobileNetV2 architecture (which excels at feature extraction) to identify distinct features such as hemmorhages, micro aneurysm compared to other conditions.
+- MobileNetV2 demonstrated comparatively higher performance for the diabetic-retinopathy class in the evaluated test set. However,class-specificperformance varied across datasets,and the observed results don't establish that the architecture specifically detects individual retinal lesions such as microaneurysms or hemorrhages.
 
 ## Limitation
+### Dataset Limitations
+- Relatively Small datset
 
-- Dataset small sample size
+- Public dataset may not represet Ethiopian primary-care populations
 
-- Image quality and variability in augmentation and normalization techniques 
+- Possible class imbalance
+
+- Possible difference in image acquisation devices
+### ExternalValidation Limitaion
+
+- Local dataset size
+
+- Whether images are truly independet
+
+- preprocessing differences
+
+### Clinical Limitaions
+- No prospective clinical evaluation
+
+### Generalizability
+
+These findings provide preliminary evidence regarding computational feasibility and cross-dataset generalizability
 
 ## 🚀 How to Run
 
