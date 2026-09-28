@@ -225,7 +225,6 @@ Name: count, dtype: int64
 --- Gonder Locked Model External Validation Report ---
 
                       precision    recall  f1-score   support
-
 diabetic_retinopathy       0.91      0.92      0.91      1204
 
             glaucoma       0.80      0.79      0.80      1007
@@ -269,7 +268,7 @@ Computational Profiling Results:
 - Possible class imbalance
 
 - Possible difference in image acquisation devices
-### ExternalValidation Limitaion
+### External Validation Limitation
 
 - Local dataset size
 
